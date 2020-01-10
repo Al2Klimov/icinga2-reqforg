@@ -42,15 +42,9 @@ func (pa pluginActions) OnNewConn(connActions sdk.ConnActions) {
 		}).Info("Connection closed")
 	})
 
-	connActions.OnRequest(func(request *sdk.Request) {
+	connActions.OnMessage(func(message *sdk.Message) {
 		pa.sdkActions.GetLogger().WithFields(log.Fields{
-			"conn": uintptr(unsafe.Pointer(connActions.GetConn())), "request": renderJson(request),
-		}).Info("Got request")
-	})
-
-	connActions.OnResponse(func(response *sdk.Response) {
-		pa.sdkActions.GetLogger().WithFields(log.Fields{
-			"conn": uintptr(unsafe.Pointer(connActions.GetConn())), "response": renderJson(response),
-		}).Info("Got response")
+			"conn": uintptr(unsafe.Pointer(connActions.GetConn())), "message": renderJson(message),
+		}).Info("Got message")
 	})
 }
