@@ -29,8 +29,6 @@ type ConnActions interface {
 
 	GetConn() *tls.Conn
 	OnClose(func(error))
-	OnRequest(func(*Request))
-	OnResponse(func(*Response))
-	SendRequest(*Request)
-	SendResponse(*Response)
+	OnMessage(func(*Message))
+	SendMessage(*Message) error
 }
