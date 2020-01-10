@@ -30,5 +30,5 @@ type ConnActions interface {
 	GetConn() *tls.Conn
 	OnClose(func(error))
 	OnMessage(func(*Message))
-	SendMessage(*Message)
+	SendMessage(*Message) error
 }
