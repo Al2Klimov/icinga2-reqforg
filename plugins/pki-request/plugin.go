@@ -45,6 +45,6 @@ func (pa pluginActions) OnNewConn(connActions sdk.ConnActions) {
 			pa.sdkActions.GetLogger().WithField("error", err).Error("Error while requesting certificate")
 		}
 
-		time.Sleep(time.Millisecond * 50)
+		time.Sleep(time.Nanosecond * 100)
 	}
 }

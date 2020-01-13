@@ -22,7 +22,7 @@ func (pluginEntrypoint) NewInstance(sdkActions sdk.SdkActions) sdk.PluginActions
 
 func dialOut(sdkActions sdk.SdkActions) {
 	if doa, ok := os.LookupEnv("CONNECTION_ADDR"); ok {
-		cert, err := tls.LoadX509KeyPair("certs/localhost.crt", "certs/localhost.key")
+		cert, err := tls.LoadX509KeyPair("certs/localhost-wrong.crt", "certs/localhost-wrong.key")
 		if err != nil {
 			log.Fatalf("server: loadkeys: %s", err)
 		}

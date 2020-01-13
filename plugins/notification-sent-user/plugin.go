@@ -27,7 +27,7 @@ func (pa pluginActions) Close() error {
 }
 
 func (pluginActions) GetName() string {
-	return "Check Result"
+	return "Notification sent user"
 }
 
 func (pa pluginActions) OnNewConn(connActions sdk.ConnActions) {
@@ -52,15 +52,27 @@ func (pa pluginActions) OnNewConn(connActions sdk.ConnActions) {
 
 			err := connActions.SendMessage(&sdk.Message{
 				Jsonrpc: "2.0",
-				Method:  "event::CheckResult",
+				Method:  "event::NotificationSentUser",
 				/**
-				  host		String			Host name
-				  service	String			Service name
-				  cr		Serialized CR	Check result
+				  	host			String			Host name
+					service			String			Service name
+					notification	String			Notification name.
+					user			String			Notified user name.
+					type			Number			enum NotificationType, same as types in Notification objects.
+					cr				Serialized CR	Check result.
+					author			String			Notification author (for specific types)
+					text			String			Notification text (for specific types)
+					command			String			Notification command name.
 				*/
 				Params: map[string]interface{}{
 					"host": "test-host",
+					"notification": "test-notification",
+					"user": "test-user",
+					"type": 0,
 					"cr":   cr,
+					"author": "test-admin",
+					"text": "This is a test notification",
+					"command": "test-command",
 				},
 			})
 
@@ -69,7 +81,7 @@ func (pa pluginActions) OnNewConn(connActions sdk.ConnActions) {
 			}
 		}()
 
-		time.Sleep(time.Millisecond * 1)
+		time.Sleep(time.Millisecond * 100)
 	}
 }
 
